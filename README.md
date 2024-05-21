@@ -58,13 +58,59 @@ Note: make sure you let DC-1 VM finish deploying, otherwise, when creating the s
 
  - Open Command Line -> type in pinng -t (perpetual ping) and the private IP address -> enter.
  - Observe how the comman did not work
+
+<img width="1083" alt="Screen Shot 2024-05-21 at 2 54 38 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/3f9325da-b199-4e44-a97e-ff4718641648">
+
  - Login to the Domain Controller and enable ICMPv4 in on the local windows Firewall
+ - Minimize Client-1 VM window and go to DC-1 VM
+ - Once inside DC-1 VM go to finder and type in "Windows Defender firewall with advance security" and open it and expand it
+
+<img width="1592" alt="Screen Shot 2024-05-21 at 2 58 17 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/9049022c-ad87-4a4e-8046-f86a79f7d963">
+<img width="1592" alt="Screen Shot 2024-05-21 at 2 59 19 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/812bd19d-e32c-4062-ac49-39e8b2640c53">
 
 
+ - Click on Inbound Rules -> Protocol -> look for "Core Networking - Destination unreachable Fragmentation Needed (ICMPv4)
+ - Right click on the 2 rules directly under it and click "enable rule"
+
+<img width="998" alt="Screen Shot 2024-05-21 at 3 04 31 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/113a205c-bb35-49f4-bfa3-c7b913d45f4e">
+
+ - Minimize DC-1 VM and go back to Client-1 VM
+ - Observer how the ping started working again after enabling the ICPv4 request on the windows firewall.
+ - Press Control C and close the command line window.
+
+<img width="1488" alt="Screen Shot 2024-05-21 at 2 51 27 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/1d40b455-fcdb-4fd1-b121-ca57d385b865">
+
+<img width="1489" alt="Screen Shot 2024-05-21 at 3 16 20 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/6ecbf084-8031-4593-a1ec-eecf8fb31a50">
+
+3. Install Active Directory
+ -  Minimize Client 1 VM and Go to DC-1
+ -  Open up Server manager
+ -  Click Add roles and features -> click next until you get to Server Roles -> Click on "Active Directory Domain Services" -> Add feature -> click next until it says install -> install -> click close after its done
+
+<img width="1486" alt="Screen Shot 2024-05-21 at 3 20 50 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/6dcb1009-c5f8-4ab6-a415-b9b997e52af5">
+
+ -  Click on the Yellow exclamation point icon next to the flag on top
+ -  Click on "Promote thi server to a domain controller"
+
+<img width="1487" alt="Screen Shot 2024-05-21 at 3 24 11 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/6a7d45f6-0ceb-4937-929a-b2b838061573">
 
 
+ -  Click on Add a new forest
+ -  Type in "mydomain.com"
+ -  click next to type in a password and put which ever password you choose
+ -  click next to everything and install
+
+<img width="1587" alt="Screen Shot 2024-05-21 at 3 29 26 PM copy" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/1ffab6a0-609e-4a0c-b1f6-3bbf377b0583">
+
+ - After it finishes installing, it be automatically sign you out
+
+<img width="771" alt="Screen Shot 2024-05-21 at 3 34 17 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/c6a89255-ff7a-4fb3-9239-93447b076208">
+
+ - Open it back up but instead of using the username you originally put in for the VM, type in the username you put in the root domain name \ your VM username
+ - In this case, it is mydomain.com\Derek15. Reason for this is because we turned this VM into a Domain controller
 
 
+4. 
 
 
 
