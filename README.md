@@ -176,14 +176,35 @@ Go to Client-1 overview page, click Restart
  - Open Active directory users and computes and click mydomain.com -> users -> Domain Users -> Members
  - You will see all the user accounts that have been created that are allowed to remotely login to Client-1
 
+<img width="2125" alt="Screen Shot 2024-05-22 at 5 59 44 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/e49ec9f7-0d6e-4f71-a006-23a41d4aabcd">
+
 7. Create a bunch of additional users and attempt to log into client-1 with one of the users
- - Open PowerShell ISE
- - 
+ - In DC-1, Open PowerShell ISE As an administrator (rigth click powershell)
+ - Copy the files from this link (https://github.com/DereHz/Generate-Names-Created-Users/blob/main/README.md)
+ - Paste it on PowerShell
+
+<img width="2126" alt="Screen Shot 2024-05-22 at 5 51 16 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/3d928b55-faf4-4e66-9ff1-7c51f9665c79">
+
+ - Run the script and observe the accounts being created
+ - When finished, open ADUC and observe the accounts in the appropriate OU
+ 
+ 
+ <img width="1216" alt="Screen Shot 2024-05-22 at 6 08 32 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/74b74515-9e87-42d0-9a8a-bd16fb15700c">
+ 
+ - attempt to log into Client-1 with one of the accounts (take note of the password in the script)
+ - For example, go to ADUC and click on mydomain.com -> _EMPLOYEES -> pick a random user recently created -> Account -> and copy the username
+ - Go to Client-1 and log off of it
+ - Log back in with the username of one of the users you picked
+ -  mydomain.com\bec.huvo
 
 
 
 
+   You have successfully configured Active Directory
 
+
+
+That Concludes This Project. 
 
 
 
