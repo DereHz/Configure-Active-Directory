@@ -100,7 +100,7 @@ Note: make sure you let DC-1 VM finish deploying, otherwise, when creating the s
  -  click next to type in a password and put which ever password you choose
  -  click next to everything and install
 
-<img width="1587" alt="Screen Shot 2024-05-21 at 3 29 26 PM copy" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/1ffab6a0-609e-4a0c-b1f6-3bbf377b0583">
+<img width="1237" alt="Screen Shot 2024-05-22 at 3 06 20 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/21c9ef9c-52c3-4e95-b06a-9828ab5615ec">
 
  - After it finishes installing, it be automatically sign you out
 
@@ -109,14 +109,76 @@ Note: make sure you let DC-1 VM finish deploying, otherwise, when creating the s
  - Open it back up but instead of using the username you originally put in for the VM, type in the username you put in the root domain name \ your VM username
  - In this case, it is mydomain.com\Derek15. Reason for this is because we turned this VM into a Domain controller
 
-
-4. 
-
-
+<img width="775" alt="Screen Shot 2024-05-22 at 4 32 54 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/d29f0574-5dd4-4e01-a22d-5d35719a99bf">
+<img width="777" alt="Screen Shot 2024-05-22 at 4 44 11 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/f09a02e8-ece6-4134-bf00-62bdf967d04c">
 
 
+4. Create an Admin and Normal User Account in AD
+ - In DC-1 VM, Open Active Directory Users and Computers (ADUC), create an Organizational Unit (OU) called “_EMPLOYEES”
+ - Right Click mydomain.com -> New -> Organizational Unit -> Name it _EMPLOYEES -> Ok
+ - Right Click mydomain.com -> New -> Organizational Unit -> name it _ADMIN
+ - Right click mydomain.com and click Refresh it
+
+<img width="775" alt="Screen Shot 2024-05-22 at 4 42 33 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/05c24d32-f37a-4d36-80df-a293f2eb0d8d">
+
+ - Right click _ADMIN -> New -> User and name it Jane Doe and set a username and password
+
+<img width="774" alt="Screen Shot 2024-05-22 at 4 50 26 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/6bdd8793-9b4e-4626-9a6c-e2cab3f4692a">
+
+ - After you created the user, go to the _ADMINS folder
+ - right click Jane Doe -> properties -> Add -> Type in "domain" -> Check names -> Domain Admin -> Ok -> Apply, then click Ok
+
+<img width="772" alt="Screen Shot 2024-05-22 at 4 54 35 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/b78900ae-f5da-4482-abc5-c16f95e7fe2e">
+
+ - Log out of DC-1 VM and log back in DC-1 VM as the user we just created.
+
+<img width="992" alt="Screen Shot 2024-05-22 at 4 57 37 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/629fb080-9ac7-432b-b6c6-d7e88d372e11">
+
+ - After your logged in, If you want to make sure you are logged in as Jane Doe, Open up command line and type in "whoami" or "hostname" and it user you are logged in as will pop up
+
+5. Join Client-1 to your domain (mydomain.com)
+ - Minimize DC-1 VM
+
+<img width="1520" alt="Screen Shot 2024-05-22 at 5 12 38 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/86ffe850-76ed-4eba-a7dc-5c228cd05bee">
+
+ - From the Azure Portal, set Client-1’s DNS settings to the DC’s Private IP address
+ - Go to DC-1 VM(in azure), Click networkig and get its private IP
+ - Go to Client-1(in azure), Click netwoking -> Network interface -> DNS servers -> click "custom" and put int DC-1's private IP address
+
+<img width="1038" alt="Screen Shot 2024-05-22 at 5 14 39 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/ac437820-52f9-47f9-a46a-3b5c302c4d75">
+
+Go to Client-1 overview page, click Restart
+
+<img width="1244" alt="Screen Shot 2024-05-22 at 5 06 25 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/416633f8-78b0-41e7-b524-12ef43107116">
+
+ - Log back in to Client-1 VM in Microsoft Remote Desktop
+ - Right click Start -> System -> Name this PC (Advanced) -> Change -> Click Domain and type in domain.com
+
+<img width="458" alt="Screen Shot 2024-05-22 at 5 19 11 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/12f18789-48b6-4ea1-b863-e848bd422f58">
+
+ - It will ask to type in username and password
+ - type in the username and password for DC-1
+ - A window will pop up asking if you want to restart the computer now. Click restart now
+
+<img width="769" alt="Screen Shot 2024-05-22 at 5 22 09 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/fcd310d3-0c93-4b07-9414-64b6ffa615f5">
+
+6. Setup Remote Desktop for non-administrative users on Client-1
+ - Open Client-1 VM again. Instead of using the credentials you created for Client-1 VM, put in the username and password for DC-1
+
+<img width="1207" alt="Screen Shot 2024-05-22 at 5 28 04 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/b3e487fb-bdc7-4f98-b6df-3b666d7b6ec0">
+
+ - Once inside, right click start -> system -> Remote Desktop -> Select users that can remotely access this PC -> Add -> type in "domain users" -> check names -> Ok
 
 
+<img width="1218" alt="Screen Shot 2024-05-22 at 5 31 22 PM" src="https://github.com/DereHz/Configure-Active-Directory/assets/169094076/4814d364-b1d6-44bc-883a-7759f262c504">
+
+ - Minimize Client-1 VM and go to DC-1 VM
+ - Open Active directory users and computes and click mydomain.com -> users -> Domain Users -> Members
+ - You will see all the user accounts that have been created that are allowed to remotely login to Client-1
+
+7. Create a bunch of additional users and attempt to log into client-1 with one of the users
+ - Open PowerShell ISE
+ - 
 
 
 
